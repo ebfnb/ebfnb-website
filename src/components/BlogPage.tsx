@@ -5,6 +5,7 @@ import { Link, Router, RouteComponentProps } from '@reach/router'
 import PageTitle from './PageTitle'
 import data from '../data/blog-content'
 import stripHtml from '../other/stripHtml'
+import Article from './Article'
 
 export const jsxFix = jsx
 
@@ -70,13 +71,13 @@ const BlogPost: Route<{ id: string }> = ({ id }) => {
     .filter(({ slug }) => slug === id)
     .pop()
   return (
-    <article>
+    <Article key={id}>
       <h3>{title}</h3>
       <p>{date}</p>
       <img src={img.src} alt={img.alt} />
       {/* eslint-disable-next-line react/no-danger */}
       <div dangerouslySetInnerHTML={{ __html: content }} />
-    </article>
+    </Article>
   )
 }
 
