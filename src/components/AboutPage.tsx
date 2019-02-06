@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import { Fragment } from 'react'
 import InternalNav from './InternalNav'
 import PageTitle from './PageTitle'
-import sections from '../data/about-content'
+import sections from '../data/aboutContent'
 import Article from './Article'
 // import cookForPeaceImg from '../assets/cook-for-peace.jpg'
 

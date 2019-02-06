@@ -1,4 +1,4 @@
-import useCurrentUser from './use-current-user'
+import useCurrentUser from './useCurrentUser'
 import routeJson from '../routes.json'
 
 const routeInfo = Object.entries(routeJson).map(([key, route]) => ({

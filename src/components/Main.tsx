@@ -3,8 +3,8 @@ import { css, jsx } from '@emotion/core'
 import { Router } from '@reach/router'
 import LayoutContainer from './LayoutContainer'
 import LazyRoute from './LazyRoute'
-import useRoutes from '../hooks/use-routes'
-import useCurrentUser from '../hooks/use-current-user'
+import useRoutes from '../hooks/useRoutes'
+import useCurrentUser from '../hooks/useCurrentUser'
 
 export const jsxFix = jsx
 

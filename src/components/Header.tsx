@@ -3,8 +3,8 @@ import { css, jsx } from '@emotion/core'
 import { Link } from '@reach/router'
 import { Fragment } from 'react'
 import LayoutContainer from './LayoutContainer'
-import useRoutes from '../hooks/use-routes'
-import useTheme from '../hooks/use-theme'
+import useRoutes from '../hooks/useRoutes'
+import useTheme from '../hooks/useTheme'
 import logo from '../assets/food-not-bombs.svg'
 
 export const jsxFix = jsx
