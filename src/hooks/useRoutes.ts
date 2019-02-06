@@ -4,8 +4,6 @@ import routeJson from '../routes.json'
 const routeInfo = Object.entries(routeJson).map(([key, route]) => ({
   ...route,
   key,
-  hasEmbeddedRouter: route.hasEmbeddedRouter || false,
-  inMenu: route.inMenu !== false,
 }))
 
 type Route = {
@@ -14,14 +12,10 @@ type Route = {
   component: string
 }
 const routes: Route[] = routeInfo
-  .map(route =>
-    route.hasEmbeddedRouter
-      ? {
-          ...route,
-          path: `${route.path}/*`,
-        }
-      : route
-  )
+  .map(route => ({
+    ...route,
+    path: `${route.path}/*`,
+  }))
   .map(({ key, path, component }) => ({
     key,
     path,
@@ -33,19 +27,19 @@ type MenuLink = {
   to: string
   label: string
 }
-const menuLinks: MenuLink[] = routeInfo
-  .filter(({ inMenu }) => inMenu)
-  .map(({ key, path, label }) => ({ key, to: path, label }))
+const menuLinks: MenuLink[] = routeInfo.map(({ key, path, label }) => ({
+  key,
+  to: path,
+  label,
+}))
 
 const useRoutes = () => {
   const { isLoggedIn } = useCurrentUser()
 
   return {
+    hasLoggedInUser: () => isLoggedIn(),
     getRoutes: () => routes,
-    getMenuLinks: () =>
-      menuLinks
-        .filter(({ key }) => key !== 'dashboard' || isLoggedIn())
-        .filter(({ key }) => key !== 'join' || !isLoggedIn()),
+    getMenuLinks: () => menuLinks,
   }
 }
 

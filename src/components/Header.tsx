@@ -40,8 +40,7 @@ const Logo = () => {
 
 const Menu = () => {
   const { colors } = useTheme()
-  const { getMenuLinks } = useRoutes()
-
+  const { getMenuLinks, hasLoggedInUser } = useRoutes()
   return (
     <ul
       css={css`
@@ -55,7 +54,14 @@ const Menu = () => {
         text-align: center;
       `}
     >
-      {getMenuLinks().map(({ key, to, label }, index) => {
+      {[
+        ...getMenuLinks(),
+        {
+          key: 'my-fnb',
+          to: hasLoggedInUser() ? 'my-fnb/dashboard' : 'my-fnb',
+          label: hasLoggedInUser() ? 'My Dashboard' : 'Join',
+        },
+      ].map(({ key, to, label }, index) => {
         return (
           <li
             css={css`

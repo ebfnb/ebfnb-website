@@ -16,7 +16,7 @@ const JoinPage = () => {
     const didLogin = login(email, password)
 
     if (didLogin) {
-      navigate('/dashboard')
+      navigate('/my-fnb/dashboard')
     }
   }
 

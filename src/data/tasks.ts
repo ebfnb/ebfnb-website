@@ -1,36 +1,45 @@
+interface TaskStatus {
+  id: string
+  reason?: string
+}
+
+interface VolunteerProfile {
+  uuid: string
+  name?: string
+}
+
+interface Location {
+  streetAddress?: string
+  city: string
+  zip: string
+}
+
 interface Task {
+  uuid: string
   type: string
-  status: {
-    type: string
-    reason?: string
-  }
+  status: TaskStatus
   created: string
   name: string
   description?: string
+  [propName: string]: any
 }
 
 interface NewVolunteerTask extends Task {
   type: 'new-volunteer'
-  profile: {
-    uuid: string
-    name?: string
-  }
+  profile: VolunteerProfile
 }
 
 interface PickUpTask extends Task {
   type: 'pick-up'
-  location: {
-    streetAddress: string
-    city: string
-    zip: string
-  }
+  location: Location
 }
 
 const tasks: Task[] = [
   {
+    uuid: '8b416b2b-0642-49b3-81b5-1bf78a7f0f24',
     type: 'new-volunteer',
     status: {
-      type: 'new',
+      id: 'new',
       // reason: 'None yet',
     },
     created: '2019-02-03',
@@ -41,9 +50,10 @@ const tasks: Task[] = [
     },
   },
   {
+    uuid: '0258aa81-67c7-4376-b834-8eeb0ce605ba',
     type: 'new-volunteer',
     status: {
-      type: 'on-hold',
+      id: 'on-hold',
       reason: 'Waiting for response.',
     },
     created: '2019-01-24',
@@ -54,9 +64,10 @@ const tasks: Task[] = [
     },
   },
   {
+    uuid: 'dc04389b-4ae8-4a64-9834-3907402e522b',
     type: 'new-volunteer',
     status: {
-      type: 'active',
+      id: 'active',
       reason: 'Needs cookhouse contact,',
     },
     created: '2019-01-12',
