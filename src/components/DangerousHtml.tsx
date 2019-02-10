@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from 'react'
-import { Link } from '@reach/router'
 import { navigate } from '@reach/router'
+import React, { useRef, useEffect } from 'react'
 
 const clickListener = event => {
   const {
@@ -22,23 +21,28 @@ const clickListener = event => {
   }
 }
 
-// @ts-ignore
-const DangerousHtml = ({ html, ...props }) => {
-  // @ts-ignore
+const hostname = window ? window.location.hostname : ''
+
+const processInternalLinks = (
+  operation: 'add' | 'remove',
+  ref: React.MutableRefObject<any>
+) =>
+  ref.current.querySelectorAll('a').forEach(anchor => {
+    if (hostname === anchor.hostname || !anchor.hostname.length) {
+      anchor[operation]('click', clickListener)
+    }
+  })
+
+const DangerousHtml = ({ html, ...props }: { html: string }) => {
   const ref = useRef()
 
   useEffect(() => {
-    const anchors = ref.current.querySelectorAll('a')
-    const processAnchors = op =>
-      anchors.forEach(a => {
-        const hostname = window ? window.location.hostname : ''
-        const isLocal = hostname === a.hostname || !a.hostname.length
-        if (isLocal) a[op]('click', clickListener)
-      })
-    processAnchors('addEventListener')
-    return () => processAnchors('removeEventListener')
+    processInternalLinks('addEventListener', ref)
+    return () => processInternalLinks('removeEventListener', ref)
   }, [ref.current])
 
+  /* eslint-disable-next-line react/no-danger */
   return <div ref={ref} dangerouslySetInnerHTML={{ __html: html }} {...props} />
 }
+
 export default DangerousHtml
