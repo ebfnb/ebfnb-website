@@ -33,7 +33,6 @@ const DangerousHtml = ({ html, ...props }) => {
       anchors.forEach(a => {
         const hostname = window ? window.location.hostname : ''
         const isLocal = hostname === a.hostname || !a.hostname.length
-        console.log(hostname, a.hostname)
         if (isLocal) a[op]('click', clickListener)
       })
     processAnchors('addEventListener')
